@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	$(".topbar li").mouseover(function() {
-		$(this).fadeTo("normal", 0.5);
+		$(this).fadeTo("slow", 0.6);
 	});
 	
 	$(".topbar li").mouseout(function() {
-		$(this).fadeTo("normal", 1);
+		$(this).fadeTo("slow", 1);
 	});
 });
