@@ -1,40 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
    	<Title>
-       	Life Assist - ease your life.
+       	生活助手－－让您的生活更轻松
    	</Title>
-   	<script type="text/javascript" src="jquery.js"></script>
-   	<style type="text/css">
-   		.center h1, h2, h3, h4, h5, h6
-   		{
-   			text-align: center;
-   		}
-			li.index 
-			{
-				display: inline;
-			}
-		</style>
-
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$(".index").mouseover(function() {
-					$(this).fadeTo("slow", 0.5);
-				});
-			});
-		</script>
-
+   	<link rel="stylesheet" type="text/css" href="css/menus.css">
+   	<script type="text/javascript" src="js/jquery.js"></script>   	
+   	<script type="text/javascript" src="js/menus.js"></script>
    </head>
    <body>
-   	<h3 class="center">
-   		<ol>
-   			<li class="index"><a href="http://www.google.com">home</a></li>
-   			<li class="index"><a href="http://www.google.com">Two</a></li>
-   			<li class="index"><a href="http://www.google.com">Three</a></li>
-   		</ol>
-   	</h3>
-   	<p>
-       	This is just the beginning.
-  		</p>
-   </body>
+	<div id="mainMenu" class="topbar">
+		<ol>
+			<li><a href="http://www.google.com">首页</a></li>
+			<li><a href="http://www.google.com">学习</a></li>
+			<li><a href="http://www.google.com">工作</a></li>
+			<li><a href="http://www.google.com">厨房</a></li>
+			<li><a href="http://www.google.com">娱乐</a></li>
+		</ol>
+  	</div>
+   </body>   	
+   <p>
+       This is just the beginning.
+  	</p>
 </html>

@@ -1,0 +1,15 @@
+.topbar ol {text-align: center;}
+
+.topbar li {display:inline;}
+
+.topbar a {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-decoration:none;
+}
+.topbar a:link {color:#FF0000;background-color:#000000}
+.topbar a:visited {color:#00FF00;}
+.topbar a:hover {color:#FF00FF;}
+.topbar a:active {color:#0000FF;}
