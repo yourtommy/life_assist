@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-	<Title>
-	    Life Assist - ease your life.
-	</Title>
-    </head>
-    <body>
-	<p>
-	    This is just the beginning.
-	</p>
-    </body>
+	<head>
+   	<Title>
+       	Life Assist - ease your life.
+   	</Title>
+   	<script type="text/javascript" src="jquery.js"></script>
+   	<style type="text/css">
+   		.center h1, h2, h3, h4, h5, h6
+   		{
+   			text-align: center;
+   		}
+			li.index 
+			{
+				display: inline;
+			}
+		</style>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".index").mouseover(function() {
+					$(this).fadeTo("slow", 0.5);
+				});
+			});
+		</script>
+
+   </head>
+   <body>
+   	<h3 class="center">
+   		<ol>
+   			<li class="index"><a href="http://www.google.com">home</a></li>
+   			<li class="index"><a href="http://www.google.com">Two</a></li>
+   			<li class="index"><a href="http://www.google.com">Three</a></li>
+   		</ol>
+   	</h3>
+   	<p>
+       	This is just the beginning.
+  		</p>
+   </body>
 </html>
