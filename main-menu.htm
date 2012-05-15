@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>main menu</title>
+
+<script type="text/javascript" src="js/dropdowntabs.js"></script>
+
+
+<!-- CSS for Drop Down Tabs Menu #3 -->
+<link rel="stylesheet" type="text/css" href="css/slidingdoors.css" />
+
+<body>
+
+
+
+<div id="slidemenu" class="slidetabsmenu">
+<ul>
+<li><a href="http://www.google.com/" title="One"><span>一</span></a></li>
+<li><a href="http://www.google.com/" title="Two" rel="dropmenu1_c"><span>二</span></a></li>
+<li><a href="http://www.google.com/" title="Three" rel="dropmenu2_c"><span>三</span></a></li>
+<li><a href="http://www.google.com/" title="Four"><span>四</span></a></li>	
+</ul>
+</div>
+
+<br style="clear: left;" />
+<br class="IEonlybr" />
+
+
+
+<!--1st drop down menu -->                                                   
+<div id="dropmenu1_c" class="dropmenudiv_c">
+<a href="http://www.google.com/">Sub1-1</a>
+<a href="http://www.google.com/">Sub1-2</a>
+<a href="http://www.google.com/">Sub1-3</a>
+</div>
+
+
+<!--2nd drop down menu -->                                                
+<div id="dropmenu2_c" class="dropmenudiv_c" style="width: 150px;">
+<a href="http://www.google.com/">Sub2-1</a>
+<a href="http://www.google.com/">Sub2-2</a>
+<a href="http://www.google.com/">Sub2-3</a>
+<a href="http://www.google.com/">Sub2-4</a>
+</div>
+
+<script type="text/javascript">
+//SYNTAX: tabdropdown.init("menu_id", [integer OR "auto"])
+tabdropdown.init("slidemenu")
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
