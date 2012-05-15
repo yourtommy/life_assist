@@ -1,0 +1,39 @@
+.collapsablemenu 
+{ 
+	margin: 5px 0; 
+	padding: 0; width: 170px; 
+	margin:0 auto; /*width of menu*/ 
+	border: 1px solid #9A9A9A;
+	float: left; 
+}
+	
+.collapsablemenu div.silverheader a 
+{ 
+	background: black url(../images/silvergradient.gif) repeat-x center left; 
+	font: normal 12px Tahoma, "Lucida Grande", "Trebuchet MS", Helvetica, sans-serif; 
+	color: white; 
+	display: block; 
+	position: relative; /*To help in the anchoring of the ".statusicon" icon image*/ 
+	width: auto; 
+	padding: 5px 0; 
+	padding-left: 8px; 
+	text-decoration: none; 
+}
+
+.collapsablemenu div.silverheader a:visited, .collapsablemenu div.silverheader a:active 
+{ 
+	color: white; 
+}
+
+.collapsablemenu div.selected a, .collapsablemenu div.silverheader a:hover 
+{ 
+	background-image: url(../images/silvergradientover.gif); 
+	color: white; 
+}
+
+.collapsablemenu div.submenu  /*DIV that contains each sub menu*/ 
+{
+	background: white; 
+	padding: 5px; 
+	height: 300px; /*Height that applies to all sub menu DIVs. A good idea when headers are toggled via "mouseover" instead of "click"*/ 
+}
