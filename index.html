@@ -12,13 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="css/mainmenu.css">
 		<script type="text/javascript" src="js/mainmenu.js"></script>
 		
-		<!-- Collapsable  menu -->
-   	<link rel="stylesheet" type="text/css" href="css/collapsablemenu.css">
-		<script type="text/javascript" src="js/collapsablemenu.js"></script>
-		
-		
-		<!-- Main Content -->
-   	<link rel="stylesheet" type="text/css" href="css/maincontent.css">
+		<!-- Desktop -->
+   	<link rel="stylesheet" type="text/css" href="css/desktop.css">
 	</head>
 
 	<body>
@@ -31,15 +26,15 @@
 			</div>
 			<div class="main_menu_center">
 				<ul>
-					<li class="main_menu_item"><a href="html/home.html" title="首页"><span>首页</span></a></li>
+					<li class="main_menu_item" side-menu="html/side_menu_home.html"><a href="html/home.html" title="首页"><span>首页</span></a></li>
 					<li class="main_menu_separator"></li>
-					<li class="main_menu_item"><a href="html/study.html" title="管理您的学习"><span>学习</span></a></li>
+					<li class="main_menu_item" side-menu="html/side_menu_home.html"><a href="html/study.html" title="管理您的学习"><span>学习</span></a></li>
 					<li class="main_menu_separator"></li>
-					<li class="main_menu_item"><a href="html/work.html" title="计划您的工作"><span>工作</span></a></li>
+					<li class="main_menu_item" side-menu="html/side_menu_home.html"><a href="html/work.html" title="计划您的工作"><span>工作</span></a></li>
 					<li class="main_menu_separator"></li>
-					<li class="main_menu_item"><a href="html/cook.html" title="厨房"><span>厨房</span></a><em></em></li>
+					<li class="main_menu_item" side-menu="html/side_menu_home.html"><a href="html/cook.html" title="厨房"><span>厨房</span></a><em></em></li>
 					<li class="main_menu_separator"></li>
-					<li class="current main_menu_item"><a href="html/fun.html" title="娱乐"><span>娱乐</span></a></li>
+					<li class="main_menu_item" side-menu="html/side_menu_home.html"><a href="html/fun.html" title="娱乐"><span>娱乐</span></a></li>
 				</ul>
 			</div>
 			<div class="main_menu_right">
@@ -48,18 +43,12 @@
 		<br style="clear:both;">
 		<!--Main menu end-->
 		
-		<!-- Collapsable menu start --> 
-	   <div class="collapsablemenu">
-		  <div class="silverheader"><a hr="html/home.html">第一项</a></div>
-		  <div class="submenu">第一项内容</div>
-		  <div class="silverheader"><a hr="html/home.html">第二项</a></div>
-		  <div class="submenu">第二项内容</div>
-		  <div class="silverheader"><a hr="html/home.html">第三项</a></div>
-		  <div class="submenu">第三项内容</div>
+		<!-- Desktop --> 
+	   <div id="desktop" class="desktop">
+			<div id="side_menu" class="side_menu"></div>
+			<div id="main_content" class="main_content"></div>
 		</div>
-		<!-- Collapsable menu end -->
+		<!-- Desktop end -->
 		
-		<div id="main_content" class="main_content">
-		</div>
 	</body>
 </html>
