@@ -1,18 +1,25 @@
-var init_main_content = null; // it's a must, otherwise 
+var before_show_main_content = null; // it's a must, otherwise compile error 
+var after_show_main_content = null; // as above
 
 function loadPage(src) {
 	var container = $("#main_content");
+	
 	// hide main_content	
-	//container.css({display:"none"});
+	container.css({display:"none"});
 	
 	container.load(src, function(response,status,xhr) {				
-		if (init_main_content != null) {
-			init_main_content();
-			init_main_content = null; // only call it once
-		}		
-		
+		if (before_show_main_content != null) {
+			before_show_main_content();
+			before_show_main_content = null; // only call it once
+		}
+	
 		// show main_content	
-		//container.css({display:"block"});
+		container.css({display:"block"});
+		
+		if (after_show_main_content != null) {
+			after_show_main_content();
+			after_show_main_content = null; // only call it once
+		}
 	});
 }
 

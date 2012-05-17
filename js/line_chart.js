@@ -266,9 +266,11 @@ function initLineChart () {
     blanket.toFront();
 }
 
-var init_main_content = function() {
-
-	hideLineChartTable();
+var before_show_main_content = function() {
+	hideLineChartTable();	
 	initLineChartPopup();
+}
+
+var after_show_main_content = function() {
 	initLineChart ();
-} 
+}
