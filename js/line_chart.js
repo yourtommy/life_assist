@@ -146,8 +146,8 @@ function hideLineChartTable () {
     });
 }
 
-function drawLineChart (holder, info, width, height, label_unit, data_unit,
-								line_color, dot_color, grid_color) {
+function drawLineChart (holder, width, height, label_unit, data_unit,
+								grid_color, chart_array) {
     function getAnchors(p1x, p1y, p2x, p2y, p3x, p3y) {
         var l1 = (p2x - p1x) / 2,
             l2 = (p3x - p2x) / 2,
@@ -166,110 +166,117 @@ function drawLineChart (holder, info, width, height, label_unit, data_unit,
             x2: p2x + dx2,
             y2: p2y + dy2
         };
-    }
+    }   
     
-    line_color = line_color || "chocolate";
-    dot_color = dot_color || "lightpink";
-    grid_color = grid_color || "gray";
-    
-    // Grab the data_array
-    var label_array = [],
-        data_array = [];
+    var r = Raphael(holder, width, height); 
+      
 	
-	for (var i = 0; i < info.length; i++) {
-		label_array.push(info[i].label);
-		data_array.push(info[i].data);
+	for (var chart_index = 0; chart_index < chart_array.length; chart_index++) {
+		var chart = chart_array[chart_index];
+		 var line_color = chart.line_color || "chocolate";
+	    var dot_color = chart.dot_color || "lightpink";
+	    var grid_color = grid_color || "gray";  
+	    
+	    // Grab the data_array
+	    var label_array = [],
+	        data_array = [];
+		
+		for (var i = 0; i < chart.info.length; i++) {
+			label_array.push(chart.info[i].label);
+			data_array.push(chart.info[i].data);
+		}
+	    
+	    // Draw
+	    var leftgutter = 20,
+	        bottomgutter = 20,
+	        topgutter = 20,
+	        dot_style = {fill:dot_color, stroke: line_color, "stroke-width": 2},
+	        label_text_style = {font: '12px Helvetica, Arial', fill: "#fff"},
+	        popup_text_style = {font: '10px Helvetica, Arial', fill: "#fff"},
+	        blanket_style = {stroke: "none", fill: "#fff", opacity: 0};
+	
+	    var grid_width = label_array.length - 1,
+	    	grid_height = 10;
+	        
+	    var X = (width - leftgutter) / chart.info.length,
+	        max = Math.max.apply(Math, data_array),
+	        Y = (height - bottomgutter - topgutter) / max;    
+	    
+	    if (chart_index == 0) // one grid only
+	    	r.drawGrid(leftgutter + X * .5 + .5, topgutter + .5, width - leftgutter - X, height - topgutter - bottomgutter, grid_width, grid_height, grid_color);
+	    var path = r.path().attr({stroke: line_color, "stroke-width": 4, "stroke-linejoin": "round"}),
+	        bgp = r.path().attr({stroke: "none", opacity: .3, fill: line_color}),
+	        label = r.set(),
+	        lx = 0, ly = 0,
+	        is_label_visible = false,
+	        leave_timer,
+	        blanket = r.set();
+	    label.push(r.text(60, 12, "24" + data_unit).attr(label_text_style));
+	    label.push(r.text(60, 27, "26" + label_unit).attr(popup_text_style).attr({fill: line_color}));
+	    label.hide();
+	    var frame = r.popup(100, 100, label, "right").attr({fill: "#000", stroke: "#666", "stroke-width": 2, "fill-opacity": .7}).hide();
+	
+	    var p, bgpp;
+	    for (var i = 0, ii = label_array.length; i < ii; i++) {
+	        var y = Math.round(height - bottomgutter - Y * data_array[i]),
+	            x = Math.round(leftgutter + X * (i + .5)),
+	            t = r.text(x, height - 6, label_array[i]).attr(label_text_style).toBack();
+	        if (!i) {
+	            p = ["M", x, y, "C", x, y];
+	            bgpp = ["M", leftgutter + X * .5, height - bottomgutter, "L", x, y, "C", x, y];
+	        }
+	        if (i && i < ii - 1) {
+	            var Y0 = Math.round(height - bottomgutter - Y * data_array[i - 1]),
+	                X0 = Math.round(leftgutter + X * (i - .5)),
+	                Y2 = Math.round(height - bottomgutter - Y * data_array[i + 1]),
+	                X2 = Math.round(leftgutter + X * (i + 1.5));
+	            var a = getAnchors(X0, Y0, x, y, X2, Y2);
+	            p = p.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
+	            bgpp = bgpp.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
+	        }
+	
+	        var dot = r.circle(x, y, 4).attr(dot_style);
+	        blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr(blanket_style));
+	        var rect = blanket[blanket.length - 1];
+	        (function (x, y, data_array, lbl, dot) {
+	            var timer, i = 0;
+	            rect.hover(function () {
+	                clearTimeout(leave_timer);
+	                var side = "right";
+	                if (x + frame.getBBox().width > width) {
+	                    side = "left";
+	                }
+	                var ppp = r.popup(x, y, label, side, 1),
+	                    anim = Raphael.animation({
+	                        path: ppp.path,
+	                        transform: ["t", ppp.dx, ppp.dy]
+	                    }, 200 * is_label_visible);
+	                lx = label[0].transform()[0][1] + ppp.dx;
+	                ly = label[0].transform()[0][2] + ppp.dy;
+	                frame.show().stop().animate(anim);
+	                label[0].attr({text: data_array + data_unit}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
+	                label[1].attr({text: lbl + label_unit}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
+	                dot.attr("r", 6);
+	                is_label_visible = true;
+	            }, function () {
+	                dot.attr("r", 4);
+	                leave_timer = setTimeout(function () {
+	                    frame.hide();
+	                    label[0].hide();
+	                    label[1].hide();
+	                    is_label_visible = false;
+	                }, 1);
+	            });
+	        })(x, y, data_array[i], label_array[i], dot);
+	    }
+	    p = p.concat([x, y, x, y]);
+	    bgpp = bgpp.concat([x, y, x, y, "L", x, height - bottomgutter, "z"]);
+	    path.attr({path: p});
+	    bgp.attr({path: bgpp});
+	    frame.toFront();
+	    label[0].toFront();
+	    label[1].toFront();
+	    blanket.toFront();
+	    
 	}
-    
-    // Draw
-    var leftgutter = 30,
-        bottomgutter = 20,
-        topgutter = 20,
-        dot_style = {fill:dot_color, stroke: line_color, "stroke-width": 2},
-        label_text_style = {font: '12px Helvetica, Arial', fill: "#fff"},
-        popup_text_style = {font: '10px Helvetica, Arial', fill: "#fff"},
-        blanket_style = {stroke: "none", fill: "#fff", opacity: 0};
-
-    var grid_width = label_array.length - 1,
-    	grid_height = 10;
-        
-    var r = Raphael(holder, width, height),
-        X = (width - leftgutter) / info.length,
-        max = Math.max.apply(Math, data_array),
-        Y = (height - bottomgutter - topgutter) / max;    
-    
-    r.drawGrid(leftgutter + X * .5 + .5, topgutter + .5, width - leftgutter - X, height - topgutter - bottomgutter, grid_width, grid_height, grid_color);
-    var path = r.path().attr({stroke: line_color, "stroke-width": 4, "stroke-linejoin": "round"}),
-        bgp = r.path().attr({stroke: "none", opacity: .3, fill: line_color}),
-        label = r.set(),
-        lx = 0, ly = 0,
-        is_label_visible = false,
-        leave_timer,
-        blanket = r.set();
-    label.push(r.text(60, 12, "24" + data_unit).attr(label_text_style));
-    label.push(r.text(60, 27, "26" + label_unit).attr(popup_text_style).attr({fill: line_color}));
-    label.hide();
-    var frame = r.popup(100, 100, label, "right").attr({fill: "#000", stroke: "#666", "stroke-width": 2, "fill-opacity": .7}).hide();
-
-    var p, bgpp;
-    for (var i = 0, ii = label_array.length; i < ii; i++) {
-        var y = Math.round(height - bottomgutter - Y * data_array[i]),
-            x = Math.round(leftgutter + X * (i + .5)),
-            t = r.text(x, height - 6, label_array[i]).attr(label_text_style).toBack();
-        if (!i) {
-            p = ["M", x, y, "C", x, y];
-            bgpp = ["M", leftgutter + X * .5, height - bottomgutter, "L", x, y, "C", x, y];
-        }
-        if (i && i < ii - 1) {
-            var Y0 = Math.round(height - bottomgutter - Y * data_array[i - 1]),
-                X0 = Math.round(leftgutter + X * (i - .5)),
-                Y2 = Math.round(height - bottomgutter - Y * data_array[i + 1]),
-                X2 = Math.round(leftgutter + X * (i + 1.5));
-            var a = getAnchors(X0, Y0, x, y, X2, Y2);
-            p = p.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
-            bgpp = bgpp.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
-        }
-
-        var dot = r.circle(x, y, 4).attr(dot_style);
-        blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr(blanket_style));
-        var rect = blanket[blanket.length - 1];
-        (function (x, y, data_array, lbl, dot) {
-            var timer, i = 0;
-            rect.hover(function () {
-                clearTimeout(leave_timer);
-                var side = "right";
-                if (x + frame.getBBox().width > width) {
-                    side = "left";
-                }
-                var ppp = r.popup(x, y, label, side, 1),
-                    anim = Raphael.animation({
-                        path: ppp.path,
-                        transform: ["t", ppp.dx, ppp.dy]
-                    }, 200 * is_label_visible);
-                lx = label[0].transform()[0][1] + ppp.dx;
-                ly = label[0].transform()[0][2] + ppp.dy;
-                frame.show().stop().animate(anim);
-                label[0].attr({text: data_array + data_unit}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
-                label[1].attr({text: lbl + label_unit}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
-                dot.attr("r", 6);
-                is_label_visible = true;
-            }, function () {
-                dot.attr("r", 4);
-                leave_timer = setTimeout(function () {
-                    frame.hide();
-                    label[0].hide();
-                    label[1].hide();
-                    is_label_visible = false;
-                }, 1);
-            });
-        })(x, y, data_array[i], label_array[i], dot);
-    }
-    p = p.concat([x, y, x, y]);
-    bgpp = bgpp.concat([x, y, x, y, "L", x, height - bottomgutter, "z"]);
-    path.attr({path: p});
-    bgp.attr({path: bgpp});
-    frame.toFront();
-    label[0].toFront();
-    label[1].toFront();
-    blanket.toFront();
 }

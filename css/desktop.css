@@ -1,5 +1,5 @@
 .desktop {
-	width: 1124px;
+	width: 1084px;
 	margin-left: auto;
 	margin-right: auto;
 	
@@ -29,7 +29,7 @@
 }
 	
 .side_menu li a:hover {
-	color: #2f2;
+	color: darkgreen;
 	background-position: 0 -32px;
 }
 	

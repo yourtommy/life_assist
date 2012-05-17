@@ -1,46 +1,69 @@
 
+<style>
+.chart {
+	float: left;
+}
+
+</style>
+
   <script src="js/raphael.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/line_chart.js"></script>  
 
 	<script type="text/javascript" >
-		var plan_hours = [
-			{ "label":"周一", "data":5	},
-			{ "label":"周二", "data":3	},
-			{ "label":"周三", "data":8	},
-			{ "label":"周四", "data":12 },
-			{ "label":"周五", "data":6	},
-			{ "label":"周六", "data":3	},
-			{ "label":"周日", "data":1	}
-		];
-
-		var done_hours = [
-			{ "label":"周一", "data":8 },
-			{ "label":"周二", "data":5 },
-			{ "label":"周三", "data":4 },
-			{ "label":"周四", "data":9 },
-			{ "label":"周五", "data":3 },
-			{ "label":"周六", "data":7 },
-			{ "label":"周日", "data":1 }
-		];
-		
-		var width = 600;
-      var height = 250;
+		var width = 280;
+      var height = 150;
 	    var label_unit = "";
 	    var data_unit = "小时";
-	    		
+	    var grid_color = "gray";
+
+		var plan_chart = {
+			info:[
+					{ "label":"周一", "data":5	},
+					{ "label":"周二", "data":3	},
+					{ "label":"周三", "data":8	},
+					{ "label":"周四", "data":12 },
+					{ "label":"周五", "data":6	},
+					{ "label":"周六", "data":3	},
+					{ "label":"周日", "data":1	}
+			],
+			line_color: "chocolate",
+		   dot_color: "lightpink",
+		};
+		
+		var done_chart = {
+			info: [
+					{ "label":"周一", "data":8 },
+					{ "label":"周二", "data":5 },
+					{ "label":"周三", "data":4 },
+					{ "label":"周四", "data":9 },
+					{ "label":"周五", "data":3 },
+					{ "label":"周六", "data":7 },
+					{ "label":"周日", "data":1 }
+			],
+			line_color: "green",
+		   dot_color: "lightgreen",
+		};
+
 		var before_show_main_content = function() {
 			hideLineChartTable();	
 			initLineChart();
+			
+			// all html-based css cannot work, so I have to use js to apply them
+			$("#plan_chart, #done_chart").addClass("chart");
 		}
 		
 		var after_show_main_content = function() {
-			drawLineChart("plan_holder", plan_hours, width, height, label_unit, data_unit);
+			drawLineChart("plan_holder", width, height, label_unit, data_unit, grid_color, [plan_chart, done_chart]);
 			
-			drawLineChart("done_holder", done_hours, width, height, label_unit, data_unit, "green", "lightgreen");
+			drawLineChart("done_holder", width, height, label_unit, data_unit, grid_color, [done_chart]);
 		}
 	</script>
-  <h2>您计划学习的时间</h2>
-  <div id="plan_holder"></div>
-  <h2>您实际学习的时间</h2>
-  <div id="done_holder"></div>
+	<div id="plan_chart">
+  		<h2>您计划学习的时间</h2>
+  		<div id="plan_holder"></div>
+  </div>
+  <div id="done_chart">
+  		<h2>您实际学习的时间</h2>
+  		<div id="done_holder"></div>
+  </div>
