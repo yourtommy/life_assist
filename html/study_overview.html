@@ -3,79 +3,44 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/line_chart.js"></script>  
 
-	<table id="data" class="line_chart_data">
-      <tfoot>
-          <tr>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-              <th>7</th>
-              <th>8</th>
-              <th>9</th>
-              <th>10</th>
-              <th>11</th>
-              <th>12</th>
-              <th>13</th>
-              <th>14</th>
-              <th>15</th>
-              <th>16</th>
-              <th>17</th>
-              <th>18</th>
-              <th>19</th>
-              <th>19</th>
-              <th>20</th>
-              <th>22</th>
-              <th>23</th>
-              <th>24</th>
-              <th>25</th>
-              <th>26</th>
-              <th>27</th>
-              <th>28</th>
-              <th>29</th>
-              <th>30</th>
-              <th>31</th>
-          </tr>
-      </tfoot>
-      <tbody>
-          <tr>
-              <td>8</td>
-              <td>25</td>
-              <td>27</td>
-              <td>25</td>
-              <td>54</td>
-              <td>59</td>
-              <td>79</td>
-              <td>47</td>
-              <td>27</td>
-              <td>44</td>
-              <td>44</td>
-              <td>51</td>
-              <td>56</td>
-              <td>83</td>
-              <td>12</td>
-              <td>91</td>
-              <td>52</td>
-              <td>12</td>
-              <td>40</td>
-              <td>8</td>
-              <td>60</td>
-              <td>29</td>
-              <td>7</td>
-              <td>33</td>
-              <td>56</td>
-              <td>25</td>
-              <td>1</td>
-              <td>78</td>
-              <td>70</td>
-              <td>68</td>
-              <td>2</td>
-          </tr>
-      </tbody>
-  </table>
-  <div id="holder"></div>
+	<script type="text/javascript" >
+		var plan_hours = [
+			{ "label":"周一", "data":5	},
+			{ "label":"周二", "data":3	},
+			{ "label":"周三", "data":8	},
+			{ "label":"周四", "data":12 },
+			{ "label":"周五", "data":6	},
+			{ "label":"周六", "data":3	},
+			{ "label":"周日", "data":1	}
+		];
 
-
-
+		var done_hours = [
+			{ "label":"周一", "data":8 },
+			{ "label":"周二", "data":5 },
+			{ "label":"周三", "data":4 },
+			{ "label":"周四", "data":9 },
+			{ "label":"周五", "data":3 },
+			{ "label":"周六", "data":7 },
+			{ "label":"周日", "data":1 }
+		];
+		
+		var width = 600;
+      var height = 250;
+	    var label_unit = "";
+	    var data_unit = "小时";
+	    		
+		var before_show_main_content = function() {
+			hideLineChartTable();	
+			initLineChart();
+		}
+		
+		var after_show_main_content = function() {
+			drawLineChart("plan_holder", plan_hours, width, height, label_unit, data_unit);
+			
+			drawLineChart("done_holder", done_hours, width, height, label_unit, data_unit, "green", "lightgreen");
+		}
+	</script>
+  <h2>您计划学习的时间</h2>
+  <div id="plan_holder"></div>
+  <h2>您实际学习的时间</h2>
+  <div id="done_holder"></div>
