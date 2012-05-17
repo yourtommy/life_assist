@@ -54,10 +54,24 @@
 		}
 		
 		var after_show_main_content = function() {
-			drawLineChart("plan_holder", width, height, label_unit, data_unit, grid_color, [plan_chart, done_chart]);
+			drawLineChart("plan_holder", width, height, label_unit, data_unit, grid_color, [plan_chart]);
 			
 			drawLineChart("done_holder", width, height, label_unit, data_unit, grid_color, [done_chart]);
 		}
+		
+		$("#compare_charts").click(function() {
+			if ($(this).attr("compare") == "true") {
+				$(this).html("取消比较");
+				$("#plan_holder").html("");
+				drawLineChart("plan_holder", width, height, label_unit, data_unit, grid_color, [done_chart, plan_chart]);
+				$(this).attr("compare", false);
+			} else {			
+				$(this).html("比较");
+				$("#plan_holder").html("");
+				drawLineChart("plan_holder", width, height, label_unit, data_unit, grid_color, [plan_chart]);
+				$(this).attr("compare", true);
+			}
+		});
 	</script>
 	<div id="plan_chart">
   		<h2>您计划学习的时间</h2>
@@ -66,4 +80,6 @@
   <div id="done_chart">
   		<h2>您实际学习的时间</h2>
   		<div id="done_holder"></div>
+  </div>
+  <div><button id="compare_charts" compare="true">比较</button>
   </div>
