@@ -4,8 +4,8 @@
   <script src="js/line_chart.js"></script>  
 
 	<script type="text/javascript" >
-		var width = 280;
-      var height = 150;
+		var width = 320;
+      var height = 180;
 	    var label_unit = "";
 	    var data_unit = "小时";
 	    var grid_color = "gray";
@@ -71,5 +71,13 @@
   		<h2>您实际学习的时间</h2>
   		<div id="done_holder"></div>
   </div>
-  <div float_clear><button id="compare_charts_button" compare="true">比较</button>
+  <div float_clear>
+  		<select>
+  			<option>最近一周</option>
+  			<option>最近一月</option>
+  			<option>最近三月</option>
+  			<option>最近半年</option>
+  			<option>最近一年</option>
+  		</select>
+		<button id="compare_charts_button" compare="true">比较</button>
   </div>
