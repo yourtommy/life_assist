@@ -1,11 +1,4 @@
 
-<style>
-.chart {
-	float: left;
-}
-
-</style>
-
   <script src="js/raphael.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/line_chart.js"></script>  
@@ -48,9 +41,6 @@
 		var before_show_main_content = function() {
 			hideLineChartTable();	
 			initLineChart();
-			
-			// all html-based css cannot work, so I have to use js to apply them
-			$("#plan_chart, #done_chart").addClass("chart");
 		}
 		
 		var after_show_main_content = function() {
@@ -59,7 +49,7 @@
 			drawLineChart("done_holder", width, height, label_unit, data_unit, grid_color, [done_chart]);
 		}
 		
-		$("#compare_charts").click(function() {
+		$("#compare_charts_button").click(function() {
 			if ($(this).attr("compare") == "true") {
 				$(this).html("取消比较");
 				$("#plan_holder").html("");
@@ -73,13 +63,13 @@
 			}
 		});
 	</script>
-	<div id="plan_chart">
+	<div float_left>
   		<h2>您计划学习的时间</h2>
   		<div id="plan_holder"></div>
   </div>
-  <div id="done_chart">
+  <div float_left>
   		<h2>您实际学习的时间</h2>
   		<div id="done_holder"></div>
   </div>
-  <div><button id="compare_charts" compare="true">比较</button>
+  <div float_clear><button id="compare_charts_button" compare="true">比较</button>
   </div>

@@ -3,7 +3,6 @@
 	margin-left: auto;
 	margin-right: auto;
 	
-	font:12px Arial,Verdana,Tahoma;
 	color: white;
 }
 
@@ -43,4 +42,12 @@
 	display: none;
 	position: relative;
 	left: -100px;
+}
+
+[float_left] {
+	float: left;
+}
+
+[float_clear] {
+	clear: both;
 }
