@@ -3,9 +3,11 @@ var after_show_main_content = null; // as above
 
 function loadPage(src) {
 	var container = $("#main_content");
+	var progress_bar = $("#progress_bar");
 	
 	// hide main_content	
 	container.css({display:"none"});
+	progress_bar.css({display:"block"});
 	
 	container.load(src, function(response,status,xhr) {				
 		if (before_show_main_content != null) {
@@ -14,6 +16,7 @@ function loadPage(src) {
 		}
 	
 		// show main_content	
+		progress_bar.css({display:"none"});
 		container.css({display:"block"});
 		
 		if (after_show_main_content != null) {
