@@ -1,62 +1,37 @@
 .desktop {
-	width: 1024px;
+	width: 1124px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .side_menu ul {
-	width: 128px;
-	margin: 60px 0;
-	padding:0;
+	list-style: none;
+	width: 170px;
+	margin: 10px;
+	padding: 0;
 	float: left;
 }
 
-.side_menu li {
-	list-style: none;
-}
-
-.side_menu a {
-	text-decoration: none;
-	color: #fff;
-	text-align:center;
-	font-size:14px;
-	font-weight: bold;
-	padding-top: 14px;	
-
+.side_menu li a {
 	display: block;
-	background: url(../images/side_menu_item.png) no-repeat;
-	width: 128px;
-	height: 45px;
-	margin: 20px 0;
-	opacity: 0.7;
-	
-	cursor: default;
+  	color: salmon;
+	background: url(../images/side_menu_item.gif);
+  	height: 22px;
+	padding: 10px 0 0 30px;
 	outline: none;
+	text-decoration: none;
+	
+	font-size:12px;
+	font-weight:bold;
 }
-
-.side_menu a:hover {
-	position: relative; /* js file handles it's position and look */
-	cursor: pointer;
-   transform: scale(1.2);
-   -ms-transform: scale(1.2); /* IE 9 */
-   -webkit-transform: scale(1.2); /* Safari and Chrome */
-   -o-transform: scale(1.2); /* Opera */
-   -moz-transform: scale(1.2); /* Firefox */
+	
+.side_menu li a:hover {
+	color: #2f2;
+	background-position: 0 -32px;
 }
-
-.side_menu a:mousedown {
-	 transform: scale(1.2);
-   -ms-transform: scale(1.2); /* IE 9 */
-   -webkit-transform: scale(1.2); /* Safari and Chrome */
-   -o-transform: scale(1.2); /* Opera */
-   -moz-transform: scale(1); /* Firefox */
-   position: relative;
-   left: -10px;
-}
-
+	
 .main_content {
 	margin-top: 5px;
 	margin-left: 30px;
 	float: left;
 }
-
