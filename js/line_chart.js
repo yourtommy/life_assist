@@ -121,7 +121,6 @@ function initLineChart() {
     };
 }
 
-
 //analytics
 
 Raphael.fn.drawGrid = function (x, y, w, h, wv, hv, color) {
@@ -137,14 +136,6 @@ Raphael.fn.drawGrid = function (x, y, w, h, wv, hv, color) {
     }
     return this.path(path.join(",")).attr({stroke: color});
 };
-
-function hideLineChartTable () {
-    $("#data_array").css({
-        position: "absolute",
-        left: "-9999em",
-        top: "-9999em"
-    });
-}
 
 function drawLineChart (holder, width, height, label_unit, data_unit,
 								grid_color, chart_array) {

@@ -9,20 +9,24 @@ function loadPage(src) {
 	container.css({display:"none"});
 	progress_bar.css({display:"block"});
 	
-	container.load(src, function(response,status,xhr) {				
+	container.load(src, function(response,status,xhr) {
+		if (status != "success") {
+			container.html("<p>十分抱歉，系统找不到资源，请稍候再试</p>");
+		}
+			
 		if (before_show_main_content != null) {
 			before_show_main_content();
 			before_show_main_content = null; // only call it once
 		}
-	
+		
 		// show main_content	
 		progress_bar.css({display:"none"});
 		container.css({display:"block"});
 		
-		if (after_show_main_content != null) {
+		if (after_show_main_content != null) { 
 			after_show_main_content();
 			after_show_main_content = null; // only call it once
-		}
+		}		
 	});
 }
 
