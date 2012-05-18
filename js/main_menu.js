@@ -11,7 +11,7 @@ function loadPage(src) {
 	
 	container.load(src, function(response,status,xhr) {
 		if (status != "success") {
-			container.html("<p>十分抱歉，系统找不到资源，请稍候再试</p>");
+			container.html("<p>十分抱歉，系统繁忙，请稍候再试。</p>");
 		}
 			
 		if (before_show_main_content != null) {
