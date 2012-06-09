@@ -35,10 +35,14 @@ function loadPage(src) {
 
 function selectMainMenuItem(item)
 {
-	if (item.attr("className") != "main_menu_item")
+	log("Begin to select main menu item: " + item.children("a").children("span").html() + ".");
+	
+	if (item.attr("class") != "main_menu_item") {
+		log("Invalid className: " + item.attr("class") + ".");		
 		return;
-	$("li.main_menu_current_item").attr("className", "main_menu_item");
-	item.attr("className", "main_menu_current_item");
+	}
+	$("li.main_menu_current_item").attr("class", "main_menu_item");
+	item.attr("class", "main_menu_current_item");
 
 	$("#side_menu").load(item.attr("side-menu"), function() {
 			$("#side_menu a").click(function() {
@@ -54,6 +58,7 @@ function selectMainMenuItem(item)
 }
 
 $(document).ready(function(){
+	log("Page loaded.");
 	$(".main_menu a").click(function() {
 		selectMainMenuItem($(this).parent("li"));
 		return false; // disable link
