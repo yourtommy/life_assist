@@ -26,7 +26,10 @@ function loadPage(src) {
 		if (after_show_main_content != null) { 
 			after_show_main_content();
 			after_show_main_content = null; // only call it once
-		}		
+		}
+		
+		// defined in desktop.js
+		desktopLoaded();
 	});
 }
 
